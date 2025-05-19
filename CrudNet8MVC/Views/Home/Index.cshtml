@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CrudNet8MVC.Models.User>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<!-- Asegúrate de tener Font Awesome en tu _Layout.cshtml o aquí -->
+<h1 class="text-center mb-4">Usuarios con .NET 8 (ASP.NET Core MVC)</h1>
+<div class="row">
+    <div class="offset-11 col-3 mb-4">
+        <a asp-action="Create" asp-controller="Home" class="btn btn-primary">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> Crear Usuario
+        </a>
+    </div>
+</div>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            @* <th>Fecha de Creación</th> *@
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.DNI</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Correo</td>
+                    @* <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td> *@
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-warning" title="Editar">
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"> Editar</i>
+                        </a>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-info" title="Detalle">
+                            <i class="fa fa-info" aria-hidden="true"> Detalle</i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-danger" title="Eliminar">
+                            <i class="fa fa-trash" aria-hidden="true"> Eliminar</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center text-danger">No hay registros de usuarios.</td>
+            </tr>
+        }
+    </tbody>
+</table>
